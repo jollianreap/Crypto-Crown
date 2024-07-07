@@ -1,0 +1,19 @@
+
+class EvmBalanceChecker: # structure of checker
+    def __init__(self):
+        ...
+
+    def get_web3(self, chain):
+        ...
+
+    async def get_tokens_data(self):
+        ...
+
+    async def fetch_price(self, session, symbol, url):
+        ...
+
+    async def get_prices(self):
+        ...
+
+    async def evm_balances(self):
+        ...
