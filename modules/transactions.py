@@ -4,6 +4,7 @@ from eth_account import Account
 from web3 import Web3
 from setting import MAX_GAS_CHARGE, MAINNET_RPC_URLS, LAYER2_RPC_URLS, NONEVM_RPC_URLS
 
+
 def get_wallet_addresses(file_path):
     """
     Извлекает адреса кошельков из текстового файла с сид фразами или приватными ключами.
@@ -18,6 +19,7 @@ def get_wallet_addresses(file_path):
             except:
                 pass
     return wallet_addresses
+
 
 def check_balances(wallet_addresses):
     """
@@ -38,6 +40,7 @@ def check_balances(wallet_addresses):
                         balances[address] = {}
                     balances[address][network] = w3.from_wei(balance, 'ether')
     return balances
+
 
 def withdraw_funds(wallet_addresses, withdrawal_address, withdrawal_amount):
     """
@@ -62,6 +65,7 @@ def withdraw_funds(wallet_addresses, withdrawal_address, withdrawal_amount):
                     signed_tx = w3.eth.account.sign_transaction(tx, private_key=w3.eth.account.from_key(address).key)
                     tx_hash = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
                     print(f"Транзакция отправлена в сети {network}: {w3.to_hex(tx_hash)}")
+
 
 if __name__ == "__main__":
     file_path = input("Введите путь к файлу с сид фразами или приватными ключами: ")
