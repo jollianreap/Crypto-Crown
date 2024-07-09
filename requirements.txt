@@ -1,4 +1,6 @@
-web3
+web3~=6.20.0
 tkinter
 eth_account
 customtkinter
+requests~=2.32.3
+aiohttp~=3.9.5
