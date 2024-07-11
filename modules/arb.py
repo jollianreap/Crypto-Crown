@@ -53,21 +53,26 @@ class AutoWithdraw:
         gas_cost = default_gas_price * gas_limit
         value = balance - gas_cost
 
-        assert value > 0, 'Недостаточно средств для покрытия газа за транзу'
         transaction['value'] = value
         transaction['gas'] = gas_limit
 
-        return transaction
+        if value > 0:
+            return transaction
+
+        return False
 
     async def send_tx(self, net_name):
         chain_id, rpc = DATA[net_name]['chain_id'], DATA[net_name]['rpc']
         print(f'Process tx in {net_name} net ({chain_id}) via this rpc: {rpc}')
         w3 = await AutoWithdraw.get_w3(rpc)
         tx = await self.create_tx(chain_id, w3)
-        signed_txn = w3.eth.account.sign_transaction(tx, self.private_key)
-        txn_hash = await w3.eth.send_raw_transaction(signed_txn.rawTransaction)
-        txn_receipt = await w3.eth.wait_for_transaction_receipt(txn_hash)
-        return f'Transaction in {net_name} net is approved: {txn_receipt}'
+        if isinstance(tx, dict):
+            signed_txn = w3.eth.account.sign_transaction(tx, self.private_key)
+            txn_hash = await w3.eth.send_raw_transaction(signed_txn.rawTransaction)
+            txn_receipt = await w3.eth.wait_for_transaction_receipt(txn_hash)
+            return f'Transaction in {net_name} net is approved: {txn_receipt}'
+
+        return f'Not enough money for transaction in {net_name}'
 
     async def nets(self):
         tasks = []
