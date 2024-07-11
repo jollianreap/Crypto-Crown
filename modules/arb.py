@@ -29,8 +29,10 @@ class AutoWithdraw:
             middlewares=[]
         )
 
-        assert await AutoWithdraw.check_rpc(w3) is True, "rpc doesn't work"
-        return w3
+        if await AutoWithdraw.check_rpc(w3) is True:
+            return w3
+
+        return None
 
     def get_sender(self, w3: Web3):
         account = w3.eth.account.from_key(self.private_key)
@@ -62,17 +64,24 @@ class AutoWithdraw:
         return False
 
     async def send_tx(self, net_name):
-        chain_id, rpc = DATA[net_name]['chain_id'], DATA[net_name]['rpc']
-        print(f'Process tx in {net_name} net ({chain_id}) via this rpc: {rpc}')
-        w3 = await AutoWithdraw.get_w3(rpc)
-        tx = await self.create_tx(chain_id, w3)
-        if isinstance(tx, dict):
-            signed_txn = w3.eth.account.sign_transaction(tx, self.private_key)
-            txn_hash = await w3.eth.send_raw_transaction(signed_txn.rawTransaction)
-            txn_receipt = await w3.eth.wait_for_transaction_receipt(txn_hash)
-            return f'Transaction in {net_name} net is approved: {txn_receipt}'
+        try:
+            chain_id, rpc = DATA[net_name]['chain_id'], DATA[net_name]['rpc']
+            print(f'Process tx in {net_name} net ({chain_id}) via this rpc: {rpc}')
+            w3 = await AutoWithdraw.get_w3(rpc)
+            if isinstance(w3, Web3):
+                tx = await self.create_tx(chain_id, w3)
+                if isinstance(tx, dict):
+                    signed_txn = w3.eth.account.sign_transaction(tx, self.private_key)
+                    txn_hash = await w3.eth.send_raw_transaction(signed_txn.rawTransaction)
+                    txn_receipt = await w3.eth.wait_for_transaction_receipt(txn_hash)
+                    return f'Transaction in {net_name} net is approved: {txn_receipt}'
 
-        return f'Not enough money for transaction in {net_name}'
+                return f'Not enough money for transaction in {net_name}'
+
+            else:
+                return f"RPC of {net_name} doesn't work: {rpc}"
+        except Exception as e:
+            return f'Got unexpected error: {e}'
 
     async def nets(self):
         tasks = []
