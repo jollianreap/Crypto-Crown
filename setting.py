@@ -1,3 +1,5 @@
+import os.path
+
 MAX_GAS_CHARGE = {
     'avalanche'     : 1,
     'polygon'       : 0.5,
@@ -76,6 +78,7 @@ NONEVM_RPC_URLS = [
     "https://mainnet-beta.solflare.network/"
 ]
 
+ROOT_PATH = 'path_to_ur_root'
 
 class Value_EVM_Balance_Checker:
 

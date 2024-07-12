@@ -200,3 +200,5 @@ MULTICALL_ETH_CONTRACTS = {
     'zora': '0x41CD56d7A899bF9c284ca04DCb16bE0B65c74917',
     'opbnb': '0x72b3797e1edbeefcb3d8ac720b15b078d797d547',
 }
+
+contract_abi = '[{"constant":true,"inputs":[{"name":"user","type":"address"},{"name":"token","type":"address"}],"name":"tokenBalance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"users","type":"address[]"},{"name":"tokens","type":"address[]"}],"name":"balances","outputs":[{"name":"","type":"uint256[]"}],"payable":false,"stateMutability":"view","type":"function"},{"payable":true,"stateMutability":"payable","type":"fallback"}]'
