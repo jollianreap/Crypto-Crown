@@ -1,37 +1,57 @@
-import os
 from typing import List
 import math
 import json
 import asyncio
+import requests
 
 from web3 import Web3
 from web3.eth import AsyncEth
+from fake_useragent import UserAgent
 
 from .utils import load_tokens_data
 from main_data.data import DATA
 from main_data.data import MULTICALL_ETH_CONTRACTS
 from main_data.data import contract_abi
 from setting import base_dir
-# from setting import ROOT_PATH
-from setting import Value_EVM_Balance_Checker
 
 with open(base_dir / 'main_data' / 'abi' / 'erc20.json', 'r') as f:
     erc20 = json.load(f)
 
 
 class EvmBalanceChecker:
-    def __init__(self, wallets, chains: List[str]):
+    def __init__(self, wallets, chains: List[str], proxy: None | str, check_proxy: bool = False):
         self.wallets = wallets
         self.chains = chains
+        self.proxy = proxy
+        self.headers = {
+            'accept': '*/*',
+            'accept-language': 'en-US,en;q=0.9',
+            'content-type': 'application/json',
+            'user-agent': UserAgent().chrome
+        }
 
-    @staticmethod
-    def get_web3(chain):
-        return Web3(
+        if self.proxy:
+            if 'http' not in self.proxy:
+                self.proxy = f'http://{self.proxy}'
+
+            if check_proxy:
+                your_ip = requests.get(
+                    'http://eth0.me/', proxies={'http': self.proxy, 'https': self.proxy}, timeout=10
+                ).text.rstrip()
+                if your_ip not in proxy:
+                    raise ConnectionError(f"Proxy doesn't work! Your IP is {your_ip}.")
+
+    def get_web3(self, chain):
+        w3 = Web3(
             provider=Web3.AsyncHTTPProvider(
                 endpoint_uri=DATA[chain]['rpc'],
             ),
             modules={'eth': (AsyncEth,)},
             middlewares=[])
+        if self.proxy:
+            w3.AsyncHTTPProvider._request_kwargs = {{'proxy': self.proxy, 'headers': self.headers}}
+
+        return w3
 
     def get_tokens_data(self):
         tokens_list = {}
@@ -71,7 +91,7 @@ class EvmBalanceChecker:
             max_attempts = 10
             for attempt in range(max_attempts):
                 try:
-                    web3 = EvmBalanceChecker.get_web3(chain)
+                    web3 = self.get_web3(chain)
                     multicall_result = await self.balance_of_all_tokens(web3, chain, wallets_list, contracts)
                     zero += len(wallets_list)
                     multicall_result = [multicall_result[i:i + len(tokens_list)] for i in
