@@ -19,7 +19,7 @@ with open(base_dir / 'main_data' / 'abi' / 'erc20.json', 'r') as f:
 
 
 class EvmBalanceChecker:
-    def __init__(self, wallets, chains: List[str], proxy: None | str, check_proxy: bool = False):
+    def __init__(self, wallets, chains: List[str], proxy: None | str = None, check_proxy: bool = False):
         self.wallets = wallets
         self.chains = chains
         self.proxy = proxy
