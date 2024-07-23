@@ -1,26 +1,27 @@
+import os
 from typing import List
 import math
 import json
 import asyncio
-import aiohttp
 
 from web3 import Web3
 from web3.eth import AsyncEth
 
-from modules.utils.loader import load_tokens_data
+from .utils import load_tokens_data
 from main_data.data import DATA
 from main_data.data import MULTICALL_ETH_CONTRACTS
 from main_data.data import contract_abi
-from setting import ROOT_PATH
+from setting import base_dir
+# from setting import ROOT_PATH
 from setting import Value_EVM_Balance_Checker
 
-with open(ROOT_PATH + '/main_data/abi/erc20.json', 'r') as f:
+with open(base_dir / 'main_data' / 'abi' / 'erc20.json', 'r') as f:
     erc20 = json.load(f)
 
 
 class EvmBalanceChecker:
-    def __init__(self, pk, chains: List[str]):
-        self.pk  = pk
+    def __init__(self, wallets, chains: List[str]):
+        self.wallets = wallets
         self.chains = chains
 
     @staticmethod
@@ -52,7 +53,6 @@ class EvmBalanceChecker:
         multicall_result = await multicall_contract.functions.balances(
             wallets_list, tokens_list
         ).call()
-
         return multicall_result
 
     async def get_balances(self, chain, wallets, tokens_list):
@@ -101,30 +101,10 @@ class EvmBalanceChecker:
         for chain in self.chains:
             if chain in tokens_data:
                 tokens_list = tokens_data[chain]
-                task = asyncio.create_task(self.get_balances(chain, self.pk, tokens_list))
+                task = asyncio.create_task(self.get_balances(chain, self.wallets, tokens_list))
                 tasks.append(task)
 
             chain_result = await asyncio.gather(*tasks)
             results[chain] = chain_result[-1]
 
         return results
-
-
-# needs just for tests
-async def main():
-    wallets = ['0xec3d68dc25be091b812a67b075f4668e4e4183c3', '0x9d17bb55b57b31329cf01aa7017948e398b277bc',
-        '0x0edefa91e99da1eddd1372c1743a63b1595fc413',
-        '0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50',
-        '0x41bc7d0687e6cea57fa26da78379dfdc5627c56d',
-        '0x6cd68e8f04490cd1a5a21cc97cc8bc15b47dc9eb',
-        '0x192820ce84fa9eb457fb228c386fe0ed22f7e33c',
-        '0x0172e05392aba65366c4dbbb70d958bbf43304e4'
-    ]
-    chains = list(Value_EVM_Balance_Checker.evm_tokens.keys())
-    evm = EvmBalanceChecker(wallets, chains)
-    td = evm.get_tokens_data()
-    print(await evm.evm_balances())
-
-if __name__ == "__main__":
-    asyncio.run(main())
-

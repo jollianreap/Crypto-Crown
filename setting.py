@@ -1,4 +1,4 @@
-import os.path
+from pathlib import Path
 
 MAX_GAS_CHARGE = {
     'avalanche'     : 1,
@@ -78,8 +78,7 @@ NONEVM_RPC_URLS = [
     "https://mainnet-beta.solflare.network/"
 ]
 
-ROOT_PATH = 'path_to_ur_root'
-
+base_dir = Path(__file__).resolve().parent
 class Value_EVM_Balance_Checker:
 
     '''
