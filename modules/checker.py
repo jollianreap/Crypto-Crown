@@ -2,7 +2,6 @@ from typing import List
 import math
 import json
 import asyncio
-import requests
 
 from web3 import Web3
 from web3.eth import AsyncEth
@@ -30,27 +29,15 @@ class EvmBalanceChecker:
             'user-agent': UserAgent().chrome
         }
 
-        if self.proxy:
-            if 'http' not in self.proxy:
-                self.proxy = f'http://{self.proxy}'
-
-            if check_proxy:
-                your_ip = requests.get(
-                    'http://eth0.me/', proxies={'http': self.proxy, 'https': self.proxy}, timeout=10
-                ).text.rstrip()
-                if your_ip not in proxy:
-                    raise ConnectionError(f"Proxy doesn't work! Your IP is {your_ip}.")
-
     def get_web3(self, chain):
         w3 = Web3(
             provider=Web3.AsyncHTTPProvider(
                 endpoint_uri=DATA[chain]['rpc'],
             ),
             modules={'eth': (AsyncEth,)},
-            middlewares=[])
-        if self.proxy:
-            w3.AsyncHTTPProvider._request_kwargs = {{'proxy': self.proxy, 'headers': self.headers}}
-
+            request_kwargs = {{'headers': self.headers}},
+            middlewares=[],
+        )
         return w3
 
     def get_tokens_data(self):
@@ -111,7 +98,7 @@ class EvmBalanceChecker:
 
                 except Exception as e:
                     await asyncio.sleep(1)
-        print(balances_dict)
+
         return balances_dict
 
     async def evm_balances(self):
