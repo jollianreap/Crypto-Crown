@@ -4,169 +4,169 @@ base_dir = Path(__file__).resolve().parent
 
 DATA = {
     "ethereum": {
-        "rpc": "https://rpc.ankr.com/eth",
+        "rpc": ["https://rpc.ankr.com/eth", "https://eth-pokt.nodies.app", "https://rpc.mevblocker.io"],
         "scan": "https://etherscan.io/tx",
         "token": "ETH",
         "chain_id": 1
     },
     "optimism": {
-        "rpc": "https://rpc.ankr.com/optimism",
+        "rpc": ["https://rpc.ankr.com/optimism", "https://optimism-rpc.publicnode.com", "https://optimism.meowrpc.com"],
         "scan": "https://optimistic.etherscan.io/tx",
         "token": "ETH",
         "chain_id": 10
     },
     "bsc": {
-        "rpc": "https://rpc.ankr.com/bsc",
+        "rpc": ["https://rpc.ankr.com/bsc", "https://binance.llamarpc.com", "https://bsc-pokt.nodies.app"],
         "scan": "https://bscscan.com/tx",
         "token": "BNB",
         "chain_id": 56
     },
     "polygon": {
-        "rpc": "https://rpc.ankr.com/polygon",
+        "rpc": ["https://rpc.ankr.com/polygon", "https://polygon.llamarpc.com", "https://polygon.drpc.org"],
         "scan": "https://polygonscan.com/tx",
         "token": "MATIC",
         "chain_id": 137
     },
     "polygon_zkevm": {
-        "rpc": "https://zkevm-rpc.com",
+        "rpc": ["https://zkevm-rpc.com"],
         "scan": "https://zkevm.polygonscan.com/tx",
         "token": "ETH",
         "chain_id": 1101
     },
     "arbitrum": {
-        "rpc": "https://rpc.ankr.com/arbitrum",
+        "rpc": ["https://rpc.ankr.com/arbitrum", "https://arbitrum.llamarpc.com", "https://arbitrum-one-rpc.publicnode.com"],
         "scan": "https://arbiscan.io/tx",
         "token": "ETH",
         "chain_id": 42161
     },
     "avalanche": {
-        "rpc": "https://rpc.ankr.com/avalanche",
+        "rpc": ["https://rpc.ankr.com/avalanche", "https://avalanche-c-chain-rpc.publicnode.com", "https://avalanche.drpc.org"],
         "scan": "https://snowtrace.io/tx",
         "token": "AVAX",
         "chain_id": 43114
     },
     "fantom": {
-        "rpc": "https://rpc.ankr.com/fantom",
+        "rpc": ["https://rpc.ankr.com/fantom", "https://fantom.drpc.org", "https://fantom-rpc.publicnode.com"],
         "scan": "https://ftmscan.com/tx",
         "token": "FTM",
         "chain_id": 250
     },
     "nova": {
-        "rpc": "https://nova.arbitrum.io/rpc",
+        "rpc": ["https://nova.arbitrum.io/rpc"],
         "scan": "https://nova.arbiscan.io/tx",
         "token": "ETH",
         "chain_id": 42170
     },
     "zksync": {
-        "rpc": "https://mainnet.era.zksync.io",
+        "rpc": ["https://mainnet.era.zksync.io", "https://1rpc.io/zksync2-era", "https://1rpc.io/zksync2-era"],
         "scan": "https://explorer.zksync.io/tx",
         "token": "ETH",
         "chain_id": 324
     },
     "celo": {
-        "rpc": "https://1rpc.io/celo",
+        "rpc": ["https://1rpc.io/celo", "https://celo.drpc.org"],
         "scan": "https://celoscan.io/tx",
         "token": "CELO",
         "chain_id": 42220
     },
     "gnosis": {
-        "rpc": "https://rpc.ankr.com/gnosis",
+        "rpc": ["https://rpc.ankr.com/gnosis", "https://1rpc.io/gnosis", "https://gnosis-rpc.publicnode.com"],
         "scan": "https://gnosisscan.io/tx",
         "token": "xDAI",
         "chain_id": 100
     },
     "core": {
-        "rpc": "https://rpc.coredao.org",
+        "rpc": ["https://rpc.coredao.org", "https://1rpc.io/core"],
         "scan": "https://scan.coredao.org/tx",
         "token": "CORE",
         "chain_id": 1116
     },
     "harmony": {
-        "rpc": "https://api.harmony.one",
+        "rpc": ["https://api.harmony.one", "https://1rpc.io/one" , "https://hmyone-pokt.nodies.app"],
         "scan": "https://explorer.harmony.one/tx",
         "token": "ONE",
         "chain_id": 1666600000
     },
     "moonbeam": {
-        "rpc": "https://rpc.ankr.com/moonbeam",
+        "rpc": ["https://rpc.ankr.com/moonbeam", "https://1rpc.io/glmr", "https://moonbeam-rpc.publicnode.com"],
         "scan": "https://moonscan.io/tx",
         "token": "GLMR",
         "chain_id": 1284
     },
     "moonriver": {
-        "rpc": "https://moonriver.public.blastapi.io",
+        "rpc": ["https://moonriver.public.blastapi.io"],
         "scan": "https://moonriver.moonscan.io/tx",
         "token": "MOVR",
         "chain_id": 1285
     },
     "linea": {
-        "rpc": "https://rpc.linea.build",
+        "rpc": ["https://rpc.linea.build", "https://linea.decubate.com", "https://1rpc.io/linea"],
         "scan": "https://lineascan.build/tx",
         "token": "ETH",
         "chain_id": 59144
     },
     "base": {
-        "rpc": "https://mainnet.base.org",
+        "rpc": ["https://mainnet.base.org", "https://base-pokt.nodies.app", "https://base.meowrpc.com"],
         "scan": "https://basescan.org/tx",
         "token": "ETH",
         "chain_id": 8453
     },
     "zora": {
-        "rpc": "https://zora.rpc.thirdweb.com",
+        "rpc": ["https://zora.rpc.thirdweb.com"],
         "scan": "https://zora.superscan.network/tx",
         "token": "ETH",
         "chain_id": 7777777
     },
     "scroll": {
-        "rpc": "https://scroll.blockpi.network/v1/rpc/public",
+        "rpc": ["https://scroll.blockpi.network/v1/rpc/public", "https://1rpc.io/scroll", "https://scroll.drpc.org"],
         "scan": "https://scrollscan.com/tx",
         "token": "ETH",
         "chain_id": 534352
     },
     "metis": {
-        "rpc": "https://metis-mainnet.public.blastapi.io",
+        "rpc": ["https://metis-mainnet.public.blastapi.io", "https://metis-pokt.nodies.app"],
         "scan": "https://andromeda-explorer.metis.io/tx",
         "token": "METIS",
         "chain_id": 1088
     },
     "canto": {
-        "rpc": "https://canto.slingshot.finance",
+        "rpc": ["https://canto.slingshot.finance"],
         "scan": "https://cantoscan.com/tx",
         "token": "CANTO",
         "chain_id": 7700
     },
     "starknet": {
-        "rpc": "https://starknet-mainnet.public.blastapi.io",
+        "rpc": ["https://starknet-mainnet.public.blastapi.io"],
         "scan": "https://starkscan.co/tx",
         "token": "ETH",
         "chain_id": None
     },
     "mantle": {
-        "rpc": "https://1rpc.io/mantle",
+        "rpc": ["https://1rpc.io/mantle", "https://mantle.drpc.org	"],
         "scan": "https://explorer.mantle.xyz/tx",
         "token": "MNT",
         "chain_id": 5000
     },
     "blast": {
-        "rpc": "https://blast.blockpi.network/v1/rpc/public",
+        "rpc": ["https://blast.blockpi.network/v1/rpc/public", "https://rpc.envelop.is/blast", "https://blast-rpc.publicnode.com"],
         "scan": "https://blastscan.io/tx",
         "token": "ETH",
         "chain_id": 81457
     },
     "zeta": {
-        "rpc": "https://zetachain-evm.blockpi.network/v1/rpc/public",
+        "rpc": ["https://zetachain-evm.blockpi.network/v1/rpc/public", "https://zeta-chain.drpc.org"],
         "scan": "https://explorer.zetachain.com",
         "token": "ZETA",
         "chain_id": 7000
     },
     "mode": {
-        "rpc": "https://1rpc.io/mode",
+        "rpc": ["https://1rpc.io/mode"],
         "scan": "https://explorer.mode.network/tx",
         "token": "ETH",
         "chain_id": 34443
     },
     "opbnb": {
-        "rpc": "https://opbnb-rpc.publicnode.com",
+        "rpc": ["https://opbnb-rpc.publicnode.com", "https://1rpc.io/opbnb"],
         "scan": "https://opbnb.bscscan.com/tx",
         "token": "BNB",
         "chain_id": 204
