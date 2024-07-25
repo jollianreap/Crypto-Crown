@@ -5,6 +5,9 @@ from web3.eth import AsyncEth
 
 from main_data.data import DATA
 
+# TODO
+# - Делаем для многих кошелей
+# - Надо почистить файлы
 
 class AutoWithdraw:
     def __init__(self, private_key: str, receiver_address: str):

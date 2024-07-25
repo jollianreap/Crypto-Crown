@@ -8,10 +8,10 @@ from web3.eth import AsyncEth
 from fake_useragent import UserAgent
 
 from .utils import load_tokens_data
-from main_data.data import DATA
-from main_data.data import MULTICALL_ETH_CONTRACTS
-from main_data.data import contract_abi
-from setting import base_dir
+from main_data import DATA
+from main_data import MULTICALL_ETH_CONTRACTS
+from main_data import contract_abi
+from main_data import base_dir
 
 with open(base_dir / 'main_data' / 'abi' / 'erc20.json', 'r') as f:
     erc20 = json.load(f)

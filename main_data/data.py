@@ -1,3 +1,7 @@
+from pathlib import Path
+
+base_dir = Path(__file__).resolve().parent
+
 DATA = {
     "ethereum": {
         "rpc": "https://rpc.ankr.com/eth",

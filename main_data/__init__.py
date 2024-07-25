@@ -1,1 +1,1 @@
-from .data import DATA, MULTICALL_ETH_CONTRACTS, contract_abi
+from .data import DATA, MULTICALL_ETH_CONTRACTS, contract_abi, base_dir
