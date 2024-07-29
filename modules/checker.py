@@ -18,16 +18,9 @@ with open(base_dir / 'main_data' / 'abi' / 'erc20.json', 'r') as f:
 
 
 class EvmBalanceChecker:
-    def __init__(self, wallets, chains: List[str], proxy: None | str = None, check_proxy: bool = False):
+    def __init__(self, wallets, chains: List[str]):
         self.wallets = wallets
         self.chains = chains
-        self.proxy = proxy
-        self.headers = {
-            'accept': '*/*',
-            'accept-language': 'en-US,en;q=0.9',
-            'content-type': 'application/json',
-            'user-agent': UserAgent().chrome
-        }
 
     def get_web3(self, chain):
         w3 = Web3(
@@ -35,7 +28,6 @@ class EvmBalanceChecker:
                 endpoint_uri=DATA[chain]['rpc'],
             ),
             modules={'eth': (AsyncEth,)},
-            request_kwargs = {{'headers': self.headers}},
             middlewares=[],
         )
         return w3
@@ -99,6 +91,7 @@ class EvmBalanceChecker:
                 except Exception as e:
                     await asyncio.sleep(1)
 
+        print(balances_dict)
         return balances_dict
 
     async def evm_balances(self):

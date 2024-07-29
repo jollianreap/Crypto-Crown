@@ -1,6 +1,6 @@
 from pathlib import Path
 
-base_dir = Path(__file__).resolve().parent
+base_dir = Path(__file__).resolve().parent.parent
 
 DATA = {
     "ethereum": {

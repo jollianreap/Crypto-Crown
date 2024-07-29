@@ -1,5 +1,5 @@
 from .checker import EvmBalanceChecker
-from .arb import AutoWithdraw
+from .native_sender import AutoWithdraw
 from .loader import load_erc20
 from .transactions import withdraw_funds
 
